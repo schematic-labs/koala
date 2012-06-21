@@ -83,9 +83,11 @@ module Koala
     # Any error with a 4xx HTTP status code
     class ClientError < APIError; end
 
-    # All graph API authentication failures.
+    # Expired, invalid, or deauthorized access token
     class AuthenticationError < ClientError; end
 
+    # The user has either not granted or revoked the permissions needed to perform this action
+    class InsufficientPermissions < ClientError; end
   end
 
 end

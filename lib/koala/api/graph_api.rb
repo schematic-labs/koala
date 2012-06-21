@@ -541,6 +541,8 @@ module Koala
             # See: https://developers.facebook.com/docs/authentication/access-token-expiration/
             #      https://developers.facebook.com/bugs/319643234746794?browse=search_4fa075c0bd9117b20604672
             AuthenticationError.new(http_status, response_body, error_info)
+          elsif error_info['type'] == 'OAuthException' && error_info['code'] == 200
+            InsufficientPermissions.new(http_status, response_body, error_info)
           else
             ClientError.new(http_status, response_body, error_info)
           end
